@@ -1,0 +1,7 @@
+<!-- *ngfor is a loop for angular html, the * is a structure directive that modify DOM -->
+<!-- Had to use Loop inside loop, given the fact that json respons was an array of arrays ATTENTION!!!!! -->
+<div *ngFor="let array of values">
+  <p *ngFor="let value of array.result">
+    {{value.id}}, {{value.name}}
+  </p>  
+</div>
