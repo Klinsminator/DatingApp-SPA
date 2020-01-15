@@ -1,0 +1,30 @@
+<div class="container mt-5">
+  <div *ngIf="!registerMode" style="text-align: center;">
+    <h1>Find your match</h1>
+    <p class="lead">Comer on in to view your matches... All you need to do is sign up!</p>
+    <div class="text-center">
+      <button class="btn btn-primary btn-lg mr-2" (click)="registerToggle()">Register</button>
+      <button class="btn btn-primary btn-lg ml-2">Learn more</button>
+    </div>
+  </div>
+
+  <div *ngIf="registerMode" class="container">
+    <div class="row justify-content-center">
+      <div class="col-4">
+        <!--For inheritance to a child page use [valuesFromHome]="values"-->
+        <!--For getting from a child page use (cancelRegister)="cancelRegisterMode($event)
+        where the cancelRegister is the child method responding, the event whatever the result-->
+        <!--<app-register [valuesFromHome]="values" (cancelRegister)="cancelRegisterMode($event)"></app-register>-->
+        <app-register (cancelRegister)="cancelRegisterMode($event)"></app-register>
+      </div>
+    </div>
+  </div>
+</div>
+<!--<p *ngFor="let value of values">{{value.name}}</p>-->
+<!--THIS IS A FOR ON HTML USING JSON ARRAY OF ARRAYS
+  <div *ngFor="let array of values">
+  <p *ngFor="let value of array.result">
+    {{value.id}}, {{value.name}}
+  </p>  
+</div>
+-->

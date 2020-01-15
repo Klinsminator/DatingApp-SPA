@@ -9,13 +9,33 @@
         <a class="nav-link" href="#">Lists</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#" tabindex="-1" aria-disabled="true">Messages</a>
+        <a class="nav-link" href="#">Messages</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link"(click)="logout()">Logout</a>
       </li>
     </ul>
+<!-- * in front of the ngIf denotes that is a structure directors that changes the DOM live-->
+    <div *ngIf="loggedIn()" class="dropdown">
+      <a class="dropdown-toggle text-light">
+        Welcome User
+      </a>
+      <div class="dropdown-menu">
+        <a class="dropdown-item" href="#"><i class="fa fa-user"></i>Edit Profile</a>
+        <div class="dropdown-divider"></div>
+        <a class="dropdown-item" href="#"><i class="fa fa-sign-out"></i>Logout</a>
+      </div>
+    </div>
 
-    <form class="form-inline my-2 my-lg-0">
-      <input class="form-control mr-sm-2" type="text" placeholder="Username">
-      <input class="form-control mr-sm-2" type="text" placeholder="Password">
-      <button class="btn btn-success my-2 my-sm-0" type="submit">Login</button>
+<!--Template reference variables begin with a # as in #loginForm for templates forms-->
+<!--These are used to tell the form is an angular form and would have diff functionality-->
+<!--ngForm directive should be activated on ap.module-->
+<!--Angular snippet consist on typing a- and it would give the options to set it up... [(ngModel)]="binding" -->
+<!--Way angular submit the form is with (ngSubmit)="login()-->
+<!--[disabled]="!loginForm.valid" uses the angular services to determine the state of the loginform-->
+    <form *ngIf="!loggedIn()" #loginForm="ngForm" class="form-inline my-2 my-lg-0" (ngSubmit)="login()">
+      <input class="form-control mr-sm-2" type="text" name="username" placeholder="Username" required [(ngModel)]="model.username">
+      <input class="form-control mr-sm-2" type="password" name="password" placeholder="Password" required [(ngModel)]="model.password">
+      <button [disabled]="!loginForm.valid" class="btn btn-success my-2 my-sm-0" type="submit">Login</button>
     </form>
 </nav>
