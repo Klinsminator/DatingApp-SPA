@@ -12,14 +12,14 @@ export class NavComponent implements OnInit {
 
   // Inject service into constructor
   // Added after AuthService the required to use alertifyjs instead of console logs
-  constructor(private autService: AuthService, private alertify: AlertifyService) { }
+  constructor(public authService: AuthService, private alertify: AlertifyService) { }
 
   ngOnInit() {
   }
 
   login() {
     // console.log(this.model);
-    this.autService.login(this.model).subscribe(next => {
+    this.authService.login(this.model).subscribe(next => {
       // console.log('Logged Succesfully');
       this.alertify.success('Logged Succesfully');
     }, error => {
@@ -29,9 +29,13 @@ export class NavComponent implements OnInit {
   }
 
   // conditionally render the navbar to show welcome message on the template
+  // By now the only thing done is check if there is some local storaged token
+  // but this is not the best way to use this... use Auth0 angular jwt
   loggedIn() {
-    const token = localStorage.getItem('token');
-    return !!token;
+    // const token = localStorage.getItem('token');
+    // return !!token;
+    // next lines use jwt auth to chekc validation
+    return this.authService.loggedIn();
   }
 
   logout() {

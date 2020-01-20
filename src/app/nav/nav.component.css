@@ -1,0 +1,4 @@
+.dropdown-toggle, .dropdown-item {
+    /*Chage the cursor for the link name on loggedin*/
+    cursor: pointer;
+}
