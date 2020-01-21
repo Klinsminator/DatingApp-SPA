@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../_services/auth.service';
 import { AlertifyService } from '../_services/alertify.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-nav',
@@ -12,7 +13,8 @@ export class NavComponent implements OnInit {
 
   // Inject service into constructor
   // Added after AuthService the required to use alertifyjs instead of console logs
-  constructor(public authService: AuthService, private alertify: AlertifyService) { }
+  // Added Router to rout the corresponding pages
+  constructor(public authService: AuthService, private alertify: AlertifyService, private router: Router) { }
 
   ngOnInit() {
   }
@@ -25,6 +27,9 @@ export class NavComponent implements OnInit {
     }, error => {
       // console.log('Failed to Login');
       this.alertify.error('Failed to Login');
+    }, () => {
+      // This is the third option on a function, the Complete (next, error, complete)
+      this.router.navigate(['/members']);
     });
   }
 
@@ -42,6 +47,7 @@ export class NavComponent implements OnInit {
     localStorage.removeItem('token');
     // console.log('Logged Out');
     this.alertify.message('Logged Out');
+    this.router.navigate(['/home']);
   }
 
 }
