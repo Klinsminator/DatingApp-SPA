@@ -13,7 +13,7 @@ export class AuthGuard implements CanActivate {
     // This validates information from all arguments... which will not be used but the boolean
     // state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
     ): boolean {
-    if (this.authService.loggedIn()){
+    if (this.authService.loggedIn()) {
       return true;
     }
 
