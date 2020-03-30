@@ -24,6 +24,9 @@ import { MemberDetailComponent } from './members/member-detail/member-detail.com
 import { MemberDetailResolver } from './_resolver/member-detail.resolver';
 import { MemberListResolver } from './_resolver/member-list.resolver';
 import { NgxGalleryModule } from 'ngx-gallery';
+import { MemberEditComponent } from './members/member-edit/member-edit.component';
+import { MemberEditResolver } from './_resolver/member-edit.resolver';
+import { PreventUnsavedChanges } from './_guards/prevent-unsaved-changes.guard';
 
 // Better handling of the token
 export function tokenGetter() {
@@ -35,7 +38,7 @@ export class CustomHammerConfig extends HammerGestureConfig {
    overrides = {
       pinch: { enable: false },
       rotat: { enable: false }
-   }
+   };
 }
 
 @NgModule({
@@ -48,7 +51,8 @@ export class CustomHammerConfig extends HammerGestureConfig {
       ListsComponent,
       MessagesComponent,
       MemberCardComponent,
-      MemberDetailComponent
+      MemberDetailComponent,
+      MemberEditComponent
    ],
    imports: [
       BrowserModule,
@@ -72,6 +76,8 @@ export class CustomHammerConfig extends HammerGestureConfig {
       ErrorInterceptorProvider,
       MemberDetailResolver,
       MemberListResolver,
+      MemberEditResolver,
+      PreventUnsavedChanges,
       // How to fix ERROR TypeError: Class constructor HammerGestureConfig cannot be invoked without 'new'
       { provide: HAMMER_GESTURE_CONFIG, useClass: CustomHammerConfig }
    ],
