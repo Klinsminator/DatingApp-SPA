@@ -10,6 +10,8 @@ import { Router } from '@angular/router';
 })
 export class NavComponent implements OnInit {
   model: any = {};
+  // Added as a variable for BehaviorSubject
+  photoUrl: string;
 
   // Inject service into constructor
   // Added after AuthService the required to use alertifyjs instead of console logs
@@ -17,6 +19,8 @@ export class NavComponent implements OnInit {
   constructor(public authService: AuthService, private alertify: AlertifyService, private router: Router) { }
 
   ngOnInit() {
+    // subscribing the photo so can change
+    this.authService.currentPhotoUrl.subscribe(photoUrl => this.photoUrl = photoUrl);
   }
 
   login() {
@@ -44,7 +48,11 @@ export class NavComponent implements OnInit {
   }
 
   logout() {
+    // Cleaning up variables once the user is logged out
     localStorage.removeItem('token');
+    localStorage.removeItem('user');
+    this.authService.decodedToken = null;
+    this.authService.currentUser = null;
     // console.log('Logged Out');
     this.alertify.message('Logged Out');
     this.router.navigate(['/home']);

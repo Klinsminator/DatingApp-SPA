@@ -3,6 +3,8 @@ import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { environment } from 'src/environments/environment';
+import { User } from '../_models/user';
+import { BehaviorSubject } from 'rxjs';
 
 // Allows to inject thing into the services
 // When creating a service, this must be included on app.module.ts on providers array
@@ -19,7 +21,19 @@ export class AuthService {
   // Decoded token for retrieving information
   decodedToken: any;
 
+  // put the image on navbar
+  currentUser: User;
+
+  // BehaviorSubject variable for nav photo
+  photoUrl = new BehaviorSubject<string>('src/assets/user.png');
+  currentPhotoUrl = this.photoUrl.asObservable();
+
   constructor(private http: HttpClient) { }
+
+  // Method that would update photo with the next selected
+  changeMemberPhoto(photoUrl: string) {
+    this.photoUrl.next(photoUrl);
+  }
 
   login(model: any) {
     // Passing just request and model on body for post
@@ -30,8 +44,12 @@ export class AuthService {
         const user = response;
         if (user) {
           localStorage.setItem('token', user.token);
+          // adding user to the page
+          localStorage.setItem('user', JSON.stringify(user.user));
           this.decodedToken = this.jwtHelper.decodeToken(user.token);
-          console.log(this.decodedToken);
+          // adding user to the page
+          this.currentUser = user.user;
+          this.changeMemberPhoto(this.currentUser.photoUrl);
         }
       })
     );

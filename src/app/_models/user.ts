@@ -11,6 +11,7 @@ export interface User {
     created: Date;
     lastActive: Date;
     photoUrl: string;
+    city: string;
     country: string;
     // The question mark makes the variable optional
     // This should be all put after the required ones
