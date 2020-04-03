@@ -68,6 +68,12 @@ export class PhotoEditorComponent implements OnInit {
       };
       // This pushes the photo into the photo array and angular auto refreshes the view
       this.photos.push(photo);
+      // If this photo is the first uploaded photo
+      if(photo.isMain) {
+        this.authService.changeMemberPhoto(photo.url);
+        this.authService.currentUser.photoUrl = photo.url;
+        localStorage.setItem('user', JSON.stringify(this.authService.currentUser));
+      }
     };
   }
 
