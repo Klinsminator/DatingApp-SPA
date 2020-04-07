@@ -8,12 +8,15 @@ import { catchError } from 'rxjs/operators';
 
 @Injectable()
 export class MemberListResolver implements Resolve<User[]> {
+    pageNumber = 1;
+    pageSize = 5;
+
     constructor(private userService: UserService, private router: Router, private alertify: AlertifyService) {}
 
     resolve(route: ActivatedRouteSnapshot): Observable<User[]> {
         // This does not need to subscribe since is a resolve, it does automatically
         // So use pipe to catch the errors and redirect user
-        return this.userService.getUsers().pipe(
+        return this.userService.getUsers(this.pageNumber, this.pageSize).pipe(
             catchError(error => {
                 this.alertify.error('Problem retreiving data');
                 // When having issues, the user should be rerouted to members page
