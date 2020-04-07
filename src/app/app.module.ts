@@ -30,6 +30,7 @@ import { PreventUnsavedChanges } from './_guards/prevent-unsaved-changes.guard';
 import { PhotoEditorComponent } from './members/photo-editor/photo-editor.component';
 import { FileUploadModule } from 'ng2-file-upload';
 import { TimeAgoPipe } from 'time-ago-pipe';
+import { ListsResolver } from './_resolver/lists.resolver';
 
 
 // Better handling of the token
@@ -90,6 +91,7 @@ export class CustomHammerConfig extends HammerGestureConfig {
       MemberListResolver,
       MemberEditResolver,
       PreventUnsavedChanges,
+      ListsResolver,
       // How to fix ERROR TypeError: Class constructor HammerGestureConfig cannot be invoked without 'new'
       { provide: HAMMER_GESTURE_CONFIG, useClass: CustomHammerConfig }
    ],
